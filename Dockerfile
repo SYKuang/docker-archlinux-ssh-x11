@@ -1,5 +1,6 @@
 FROM base/archlinux:latest
 MAINTAINER sykuang <sykuang.tw@gmail.com>
+ENV LANG=en_US.UTF-8
 
 ARG USER=docker
 ARG PASSWORD=docker
@@ -13,7 +14,7 @@ RUN curl https://www.archlinux.org/mirrorlist/?country=TW&country=US&protocol=ht
     echo "SigLevel = Never" >> /etc/pacman.conf && \
     echo "Server = http://repo.archlinux.fr/\$arch" >> /etc/pacman.conf && \
     pacman -Syu --noconfirm yaourt && \
-    useradd --create-home docker && \
+    useradd --create-home $USER && \
     echo -e "$USER\n$PASSWORD" | passwd docker && \
     echo "docker ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     # Install HPN and X11
@@ -28,7 +29,6 @@ RUN curl https://www.archlinux.org/mirrorlist/?country=TW&country=US&protocol=ht
     echo "X11UseLocalhost no" >> /etc/ssh/sshd_config && \
     runuser -l docker -c "touch /home/docker/.Xauthority" && \
     touch $HOME/.Xauthority && \
-    ssh-keygen -A && \
 # Cleanup
     rm -r /tmp/* && \
     rm -r /usr/share/man/* && \
@@ -37,7 +37,8 @@ RUN curl https://www.archlinux.org/mirrorlist/?country=TW&country=US&protocol=ht
     paccache -rk0 >/dev/null 2>&1 &&  \
     pacman-optimize && \
     rm -r /var/lib/pacman/sync/*
+# Add entrypoint.sh
+ADD entrypoint.sh /etc/entrypoint.sh
 
 EXPOSE 22
-ENV LANG=en_US.UTF-8
-CMD ["/bin/sshd","-D"]
+ENTRYPOINT ["/bin/bash","/etc/entrypoint.sh"]
