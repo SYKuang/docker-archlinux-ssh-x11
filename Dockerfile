@@ -9,6 +9,7 @@ RUN curl https://www.archlinux.org/mirrorlist/?country=TW&country=US&protocol=ht
     pacman -Syu --noconfirm && \
 # Generate locale en_US
     sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/'  /etc/locale.gen && \
+    echo "LANG=en_US.UTF-8" >> /etc/locale.conf && \
     locale-gen && \
 # Install develop package
     pacman -S --noconfirm sudo git vim base-devel go && \
