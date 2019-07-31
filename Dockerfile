@@ -1,4 +1,4 @@
-FROM base/archlinux:latest
+FROM archlinux/base:latest
 MAINTAINER sykuang <sykuang.tw@gmail.com>
 ENV LANG=en_US.UTF-8
 
