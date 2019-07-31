@@ -23,7 +23,7 @@ RUN curl https://www.archlinux.org/mirrorlist/?country=TW&country=US&protocol=ht
     sudo -u $USER makepkg -si --noconfirm && \
     cd / && \
     # Install HPN and X11
-    runuser -l docker -c "yay --noconfirm -S openssh-hpn-git" && \
+    runuser -l docker -c "yay --noconfirm -S openssh-hpn" && \
     pacman --noconfirm -S xterm xorg-xclock xorg-xcalc xorg-xauth xorg-xeyes ttf-droid && \
 # Set SSH Server
     echo "Port 22" >> /etc/ssh/sshd_config && \
