@@ -24,7 +24,7 @@ RUN curl https://www.archlinux.org/mirrorlist/?country=TW&country=US&protocol=ht
     cd / && \
     # Install HPN and X11
     runuser -l docker -c "yay --noconfirm -S openssh-hpn" && \
-    pacman --noconfirm -S xterm xorg-xclock xorg-xcalc xorg-xauth xorg-xeyes ttf-droid && \
+    pacman --noconfirm -S xterm xorg-xclock xorg-xcalc xorg-xauth xorg-xeyes ttf-droid zsh && \
 # Set SSH Server
     echo "Port 22" >> /etc/ssh/sshd_config && \
     echo "X11Forwarding yes" >> /etc/ssh/sshd_config && \
